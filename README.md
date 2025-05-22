@@ -2,10 +2,10 @@
 ## Objetivos de la práctica
 Los objetivos formativos de esta práctica se centran en que el alumno adquiera los siguientes conocimientos y habilidades:
 
-Conocimiento de la infraestructura de cómputo para Big Data y su despliegue en plataformas de cloud computing.
-Manejo del sistema HDFS.
-Conocimiento de frameworks para el procesamiento de los datos de gran volumen y aplicación de técnicas de Minería de Datos para la extracción de conocimiento.
-Uso de las herramientas básicas proporcionadas por la MLLib de Spark.
+1. Conocimiento de la infraestructura de cómputo para Big Data y su despliegue en plataformas de cloud computing.
+2. Manejo del sistema HDFS.
+3. Conocimiento de frameworks para el procesamiento de los datos de gran volumen y aplicación de técnicas de Minería de Datos para la extracción de conocimiento.
+4. Uso de las herramientas básicas proporcionadas por la MLLib de Spark.
 
 ## Configuración del entorno con Docker
 Primero creo mi estructura de carpetas
