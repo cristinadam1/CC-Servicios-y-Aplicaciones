@@ -5,9 +5,9 @@ from pyspark.ml.classification import LogisticRegression, RandomForestClassifier
 from pyspark.ml.evaluation import BinaryClassificationEvaluator
 from pyspark.ml import Pipeline
 from pyspark.ml.feature import MinMaxScaler
-from pyspark.ml.evaluation import MulticlassClassificationEvaluator 
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 
-# 1. Crear sesión de Spark
+# 1. Creo la sesión de Spark
 spark = SparkSession.builder.appName("Practica3-MLlib").getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
 
@@ -59,21 +59,22 @@ modelos = {
     "LogisticRegression_1": LogisticRegression(maxIter=10, regParam=0.01),
     "LogisticRegression_2": LogisticRegression(maxIter=20, regParam=0.1),
     "RandomForest_1": RandomForestClassifier(numTrees=10, maxDepth=5),
-    #"RandomForest_2": RandomForestClassifier(numTrees=30, maxDepth=10),
-    #"DecisionTree_1": DecisionTreeClassifier(maxDepth=20),
-    #"DecisionTree_2": DecisionTreeClassifier(maxDepth=10),
+    "RandomForest_2": RandomForestClassifier(numTrees=30, maxDepth=10),
+    "DecisionTree_1": DecisionTreeClassifier(maxDepth=20),
+    "DecisionTree_2": DecisionTreeClassifier(maxDepth=10),
     "NaiveBayes_1": NaiveBayes(smoothing=1.0),
     "NaiveBayes_2": NaiveBayes(smoothing=0.5)
 }
 
 
-# 7. Evaluador
+# Evaluadores
 evaluator = BinaryClassificationEvaluator(metricName="areaUnderROC")
 evaluator_f1 = MulticlassClassificationEvaluator(metricName="f1")
 evaluator_precision = MulticlassClassificationEvaluator(metricName="weightedPrecision")
 evaluator_recall = MulticlassClassificationEvaluator(metricName="weightedRecall")
 
-# 8. Entrenamiento y evaluación
+
+# 7. Entrenamiento y evaluación
 print("\n Resultados:")
 for nombre, modelo in modelos.items():
     if "NaiveBayes" in nombre:
@@ -84,19 +85,12 @@ for nombre, modelo in modelos.items():
         predicciones = m.transform(test_std)
 
     auc = evaluator.evaluate(predicciones)
-    #print(f"{nombre}: AUC = {auc:.4f}")
     f1 = evaluator_f1.evaluate(predicciones)
     precision = evaluator_precision.evaluate(predicciones)
     recall = evaluator_recall.evaluate(predicciones)
     print(f"{nombre}: AUC={auc:.4f}, F1={f1:.4f}, Precision={precision:.4f}, Recall={recall:.4f}")
+    #print(f"{nombre}: AUC = {auc:.4f}")
 
-# 9. Importancia de características para modelos de árbol
-for nombre, modelo in modelos.items():
-    if "RandomForest" in nombre:
-        m = modelo.fit(train_std)
-        print(f"\nImportancia de features para {nombre}:")
-        for f, importancia in zip(features, m.featureImportances):
-            print(f"{f}: {importancia:.4f}")
 
-# 10. Cierre de Spark
+# 8. Cierre de Spark
 spark.stop()

@@ -142,7 +142,7 @@ Para abordar el problema de clasificación binaria, he usado 3 técnicas de cons
 
 Los resultados obtenidos han los siguientes:
 
-![cap1](/img/c1.png)
+![cap10](/img/c10.png)
 
 Con estos resultados, podemos decir que:
 
@@ -170,7 +170,7 @@ Para solucionarlo añado la siguiente línea de código a clasificador.py spark.
 Al ejecutar el clasificador acababa en "Killed" esto era debido a que se estaba quedando sin memoria justo durante el entrenamiento de uno de los modelos.
 Para solucionarlo ejecuto el clasificador con este comando:
 
-    spark-submit --master local[2] --executor-memory 4g /workspace clasificador.py
+    spark-submit --master local[2] --executor-memory 4g /workspace/clasificador.py
 
 - local[2]: usa solo 2 núcleos (evita sobrecargar).
 - --executor-memory 4g: da más RAM al proceso.
